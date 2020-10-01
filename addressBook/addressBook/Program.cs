@@ -45,7 +45,7 @@ namespace addressBook
                     }
                 }
 
-                Console.WriteLine("Enter\n1 to Add a contact\n2 to Edit an existing contact\n3 to Exit");
+                Console.WriteLine("Enter\n1 to Add a contact\n2 to Edit an existing contact\nAny other number to Exit");
                 int choice = Convert.ToInt32(Console.ReadLine());
 
                 if (choice == 1)
@@ -73,7 +73,9 @@ namespace addressBook
 
                 var varContact = new contact(first, last, address, city, state, phone, email, zip);
                 contactList.Add(varContact);
+                Console.WriteLine("------------------------");
                 Console.WriteLine("The contact has been added succesfully");
+                Console.WriteLine("------------------------");
 
                 Console.WriteLine("Enter 1 to add one more and 0 to exit");
                 int check = Convert.ToInt32(Console.ReadLine());
@@ -112,7 +114,9 @@ namespace addressBook
                     break;
                 }
             }
+            Console.WriteLine("-----------------------");
+            Console.WriteLine("Edited Successfully");
+            Console.WriteLine("-----------------------");
         }
-
-    }
+     }
 }
