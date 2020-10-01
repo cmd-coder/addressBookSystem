@@ -45,13 +45,15 @@ namespace addressBook
                     }
                 }
 
-                Console.WriteLine("Enter\n1 to Add a contact\n2 to Edit an existing contact\nAny other number to Exit");
+                Console.WriteLine("Enter\n1 to Add a contact\n2 to Edit an existing contact\n3 to delete a contact\nAny other number to Exit");
                 int choice = Convert.ToInt32(Console.ReadLine());
 
                 if (choice == 1)
                     AddContact();
                 else if (choice == 2)
                     EditContact();
+                else if (choice == 3)
+                    DeleteContact();
                 else
                     break;
             }
@@ -118,5 +120,23 @@ namespace addressBook
             Console.WriteLine("Edited Successfully");
             Console.WriteLine("-----------------------");
         }
-     }
+
+        static void DeleteContact()
+        {
+            Console.WriteLine("Enter the first name of the contact to be deleted.");
+            string name = Console.ReadLine();
+
+            foreach (var i in contactList)
+            {
+                if (i.FirstName == name)
+                {
+                    contactList.Remove(i);
+                    break;
+                }
+            }
+            Console.WriteLine("-----------------------");
+            Console.WriteLine("Deleted Successfully");
+            Console.WriteLine("-----------------------");
+        }
+    }
 }
