@@ -75,9 +75,9 @@ namespace addressBook
 
                 var varContact = new contact(first, last, address, city, state, phone, email, zip);
                 contactList.Add(varContact);
-                Console.WriteLine("------------------------");
+                Console.WriteLine("-------------------------");
                 Console.WriteLine("The contact has been added succesfully");
-                Console.WriteLine("------------------------");
+                Console.WriteLine("-------------------------");
 
                 Console.WriteLine("Enter 1 to add one more and 0 to exit");
                 int check = Convert.ToInt32(Console.ReadLine());
