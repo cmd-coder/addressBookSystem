@@ -8,6 +8,8 @@ namespace addressBook
     {
 
         static List<contact> contactList = new List<contact>();
+        static Dictionary<string, List<contact>> addressDict = new Dictionary<string, List<contact>>();
+
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome To Address Book Program!");
@@ -22,16 +24,57 @@ namespace addressBook
             contactList.Add(varContact3);
             //Console.WriteLine(varContact.FirstName + "--" + varContact.LastName + "--" + varContact.Address + "--" + varContact.City + "--" + varContact.State + "--" + varContact.Zip + "--" + varContact.Phone + "--" + varContact.Email);
 
+            addressDict.Add("Address Book 1", contactList);
+
             while (true)
             {
-                if (contactList.Count == 0)
+                Console.WriteLine("The address books in the system are:");
+                foreach(KeyValuePair<string, List<contact>> j in addressDict)
+                {
+                    Console.WriteLine(j.Key);
+                }
+
+                Console.WriteLine("---------------------------");
+                Console.WriteLine("Enter:\n1 for adding a new address book\n2 for selecting an existing one\n3 to exit");
+                int option = Convert.ToInt32(Console.ReadLine());
+                if (option == 1)
+                {
+                    Console.WriteLine("Enter the name of the address book");
+                    string name = Console.ReadLine();
+                    List<contact> list = new List<contact>();
+                    //Console.WriteLine("Enter the contacts");
+                    //list = AddContact();
+                    addressDict.Add(name, list);
+                    Console.WriteLine("Address book created");
+                    Console.WriteLine("--------------------");
+                }
+
+                else if (option == 2)
+                {
+                    Console.WriteLine("Enter the name of the address book to be selected");
+                    string book = Console.ReadLine();
+                    Console.WriteLine("-------------------");
+                    select(addressDict[book]);
+                }
+
+                else
+                    break;
+            }
+
+        }
+
+        static void select(List<contact> list)
+        {
+            while (true)
+            {
+                if (list.Count == 0)
                     Console.WriteLine("There are no contacts in the address book");
                 else
                 {
                     Console.WriteLine("-----------------------------");
                     Console.WriteLine("The contacts are: ");
                     Console.WriteLine("-----------------------------");
-                    foreach (var i in contactList)
+                    foreach (var i in list)
                     {
                         Console.WriteLine("First name: " + i.FirstName);
                         Console.WriteLine("Last name: " + i.LastName);
@@ -49,18 +92,19 @@ namespace addressBook
                 int choice = Convert.ToInt32(Console.ReadLine());
 
                 if (choice == 1)
-                    AddContact();
+                    AddContact(list);
                 else if (choice == 2)
-                    EditContact();
+                    EditContact(list);
                 else if (choice == 3)
-                    DeleteContact();
+                    DeleteContact(list);
                 else
                     break;
             }
         }
 
-        static void AddContact()
+        static void AddContact(List<contact> list)
         {
+            //List<contact> list = new List<contact>();
             while (true)
             {
                 Console.WriteLine("Enter first name, last name, address, city, state, zip, phone number and email in sequence");
@@ -74,24 +118,25 @@ namespace addressBook
                 string email = Console.ReadLine();
 
                 var varContact = new contact(first, last, address, city, state, phone, email, zip);
-                contactList.Add(varContact);
+                list.Add(varContact);
                 Console.WriteLine("-------------------------");
                 Console.WriteLine("The contact has been added succesfully");
                 Console.WriteLine("-------------------------");
 
                 Console.WriteLine("Enter 1 to add one more and 0 to exit");
                 int check = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("-------------------------");
                 if (check == 0)
                     break;
             }
         }
 
-        static void EditContact()
+        static void EditContact(List<contact> list)
         {
             Console.WriteLine("Enter the first name of the person whose contact is to be edited");
             string firstName = Console.ReadLine();
             
-            foreach(var i in contactList)
+            foreach(var i in list)
             {
                 if (i.FirstName==firstName)
                 {
@@ -121,16 +166,16 @@ namespace addressBook
             Console.WriteLine("-----------------------");
         }
 
-        static void DeleteContact()
+        static void DeleteContact(List<contact> list)
         {
             Console.WriteLine("Enter the first name of the contact to be deleted.");
             string name = Console.ReadLine();
 
-            foreach (var i in contactList)
+            foreach (var i in list)
             {
                 if (i.FirstName == name)
                 {
-                    contactList.Remove(i);
+                    list.Remove(i);
                     break;
                 }
             }
