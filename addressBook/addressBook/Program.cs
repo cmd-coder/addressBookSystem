@@ -44,7 +44,7 @@ namespace addressBook
                 }
 
                 Console.WriteLine("---------------------------");
-                Console.WriteLine("Enter:\n1 for adding a new address book\n2 for selecting an existing one\n3 to find a person residing in a city or a state\n4 to exit");
+                Console.WriteLine("Enter:\n1 for adding a new address book\n2 for selecting an existing one\n3 to find a person residing in a city or a state\n4 to find the number of contact persons residing in a city or state\n5 to exit");
                 int option = Convert.ToInt32(Console.ReadLine());
                 if (option == 1)
                 {
@@ -72,6 +72,14 @@ namespace addressBook
                     string place = Console.ReadLine();
                     Console.WriteLine("-------------------");
                     find(place);
+                }
+
+                else if(option==4)
+                {
+                    Console.WriteLine("Enter the name of a city or a state");
+                    string place = Console.ReadLine();
+                    Console.WriteLine("-------------------");
+                    count(place);
                 }
 
                 else
@@ -230,6 +238,25 @@ namespace addressBook
             }
             if (count == 0)
                 Console.WriteLine("No results found");
+            Console.WriteLine("-----------------------");
+        }
+
+        static void count(string place)
+        {
+            int count = 0;
+            foreach (KeyValuePair<string, List<contact>> kvp in addressDict)
+            {
+                List<contact> list = kvp.Value;
+                foreach (var i in list)
+                {
+                    if (i.City == place || i.State == place)
+                        count++;
+                }
+            }
+            if (count == 0)
+                Console.WriteLine("No results found");
+            else
+                Console.WriteLine("The number of contact persons are: " + count);
             Console.WriteLine("-----------------------");
         }
     }
