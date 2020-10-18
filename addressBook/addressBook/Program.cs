@@ -10,6 +10,8 @@ namespace addressBook
 
         static List<contact> contactList = new List<contact>();
         static Dictionary<string, List<contact>> addressDict = new Dictionary<string, List<contact>>();
+        static Dictionary<string, string> personCity = new Dictionary<string, string>();
+        static Dictionary<string, string> personState = new Dictionary<string, string>();
 
         static void Main(string[] args)
         {
@@ -17,12 +19,18 @@ namespace addressBook
 
             var varContact = new contact("First", "Last", "Address", "City", "State", "Phone", "Email", 100050);
             contactList.Add(varContact);
+            personCity.Add("First Last", "City");
+            personState.Add("First Last", "State");
 
             var varContact2 = new contact("First2", "Last2", "Address2", "City2", "State2", "Phone2", "Email2", 200050);
             contactList.Add(varContact2);
+            personCity.Add("First2 Last2", "City2");
+            personState.Add("First2 Last2", "State2");
 
             var varContact3 = new contact("First3", "Last3", "Address3", "City3", "State3", "Phone3", "Email3", 300050);
             contactList.Add(varContact3);
+            personCity.Add("First3 Last3", "City3");
+            personState.Add("First3 Last3", "State3");
             //Console.WriteLine(varContact.FirstName + "--" + varContact.LastName + "--" + varContact.Address + "--" + varContact.City + "--" + varContact.State + "--" + varContact.Zip + "--" + varContact.Phone + "--" + varContact.Email);
 
             addressDict.Add("Address Book 1", contactList);
@@ -136,6 +144,8 @@ namespace addressBook
                 }
 
                 list.Add(varContact);
+                personCity.Add(first + " " + last, city);
+                personState.Add(first + " " + last, state);
                 Console.WriteLine("-------------------------");
                 Console.WriteLine("The contact has been added succesfully");
                 Console.WriteLine("-------------------------");
