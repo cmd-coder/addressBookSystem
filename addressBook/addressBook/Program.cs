@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.ExceptionServices;
+using System.Security.Cryptography.X509Certificates;
 
 namespace addressBook
 {
@@ -35,7 +36,7 @@ namespace addressBook
                 }
 
                 Console.WriteLine("---------------------------");
-                Console.WriteLine("Enter:\n1 for adding a new address book\n2 for selecting an existing one\n3 to exit");
+                Console.WriteLine("Enter:\n1 for adding a new address book\n2 for selecting an existing one\n3 to find a person residing in a city or a state\n4 to exit");
                 int option = Convert.ToInt32(Console.ReadLine());
                 if (option == 1)
                 {
@@ -55,6 +56,14 @@ namespace addressBook
                     string book = Console.ReadLine();
                     Console.WriteLine("-------------------");
                     select(addressDict[book]);
+                }
+
+                else if(option == 3)
+                {
+                    Console.WriteLine("Enter the name of a city or a state");
+                    string place = Console.ReadLine();
+                    Console.WriteLine("-------------------");
+                    find(place);
                 }
 
                 else
@@ -189,6 +198,28 @@ namespace addressBook
             }
             Console.WriteLine("-----------------------");
             Console.WriteLine("Deleted Successfully");
+            Console.WriteLine("-----------------------");
+        }
+
+        static void find(string place)
+        {
+            Console.WriteLine("Results:");
+            Console.WriteLine("-----------------------");
+            int count = 0;
+            foreach(KeyValuePair<string , List<contact>> kvp in addressDict)
+            {
+                List<contact> list = kvp.Value;
+                foreach(var i in list)
+                {
+                    if(i.City==place || i.State==place)
+                    {
+                        Console.WriteLine(i.FirstName+" "+i.LastName+" has been found in "+kvp.Key+" address book.");
+                        count++;
+                    }
+                }
+            }
+            if (count == 0)
+                Console.WriteLine("No results found");
             Console.WriteLine("-----------------------");
         }
     }
