@@ -4,7 +4,7 @@ using System.Text;
 
 namespace addressBook
 {
-    public class contact
+    public class contact : IEquatable<contact>
     {
         string first = "", last = "", add = "", city = "", state = "", phone = "", email = "";
         int zip = 0;
@@ -45,5 +45,16 @@ namespace addressBook
         public string Email
         { get=>email; set=>email=value; }
 
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as contact);
+        }
+
+        public bool Equals(contact other)
+        {
+            return other != null &&
+                   FirstName == other.FirstName &&
+                   LastName == other.LastName;
+        }
     }
 }

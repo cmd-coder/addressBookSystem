@@ -118,6 +118,14 @@ namespace addressBook
                 string email = Console.ReadLine();
 
                 var varContact = new contact(first, last, address, city, state, phone, email, zip);
+
+                if(list.Contains(varContact))
+                {
+                    Console.WriteLine("List already has this contact template. Try again.");
+                    Console.WriteLine("-------------------------");
+                    continue;
+                }
+
                 list.Add(varContact);
                 Console.WriteLine("-------------------------");
                 Console.WriteLine("The contact has been added succesfully");
