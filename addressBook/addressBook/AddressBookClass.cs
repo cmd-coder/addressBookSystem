@@ -14,19 +14,13 @@ namespace addressBook
                     Console.WriteLine("There are no contacts in the address book");
                 else
                 {
+                    list.Sort();//Sorting the list
                     Console.WriteLine("-----------------------------");
                     Console.WriteLine("The contacts are: ");
                     Console.WriteLine("-----------------------------");
                     foreach (var i in list)
                     {
-                        Console.WriteLine("First name: " + i.FirstName);
-                        Console.WriteLine("Last name: " + i.LastName);
-                        Console.WriteLine("Address: " + i.Address);
-                        Console.WriteLine("City: " + i.City);
-                        Console.WriteLine("State: " + i.State);
-                        Console.WriteLine("Zip code: " + i.Zip);
-                        Console.WriteLine("Phone Number: " + i.Phone);
-                        Console.WriteLine("Email: " + i.Email);
+                        Console.WriteLine(i);//Using overridden ToString() method present in contact class
                         Console.WriteLine("---------------------------");
                     }
                 }
@@ -70,6 +64,9 @@ namespace addressBook
                 }
 
                 list.Add(varContact);
+
+                
+
                 personCity.Add(first + " " + last, city);
                 personState.Add(first + " " + last, state);
                 Console.WriteLine("-------------------------");

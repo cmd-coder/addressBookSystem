@@ -17,7 +17,7 @@ namespace addressBook
         {
             Console.WriteLine("Welcome To Address Book Program!");
 
-            var varContact = new contact("First", "Last", "Address", "City", "State", "Phone", "Email", 100050);
+            var varContact = new contact("First5", "Last", "Address", "City", "State", "Phone", "Email", 100050);
             contactList.Add(varContact);
             personCity.Add("First Last", "City");
             personState.Add("First Last", "State");

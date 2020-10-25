@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace addressBook
 {
-    public class contact : IEquatable<contact>
+    public class contact : IEquatable<contact>, IComparable<contact>
     {
         string first = "", last = "", add = "", city = "", state = "", phone = "", email = "";
         int zip = 0;
@@ -55,6 +56,25 @@ namespace addressBook
             return other != null &&
                    FirstName == other.FirstName &&
                    LastName == other.LastName;
+        }
+
+        public  int CompareTo(contact person)
+        {
+            if (person == null)
+                return 1;
+            return this.FirstName.CompareTo(person.FirstName);
+        }
+
+        public override string ToString()
+        {
+            return "First name: " + FirstName
+                + "\nLast name: " + LastName
+                + "\nAddress: " + Address
+                + "\nCity: "+City
+                +"\nState: "+State
+                +"\nZip: "+Zip
+                +"\nPhone: "+Phone
+                +"\nEmail: "+Email;
         }
     }
 }
