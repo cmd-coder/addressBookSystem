@@ -62,7 +62,15 @@ namespace addressBook
         {
             if (person == null)
                 return 1;
-            return this.FirstName.CompareTo(person.FirstName);
+            if (this.FirstName.CompareTo(person.FirstName) != 0)
+                return this.FirstName.CompareTo(person.FirstName);
+            else if (this.LastName.CompareTo(person.LastName) != 0)
+                return this.LastName.CompareTo(person.LastName);
+            else if (this.City.CompareTo(person.City) != 0)
+                return this.City.CompareTo(person.City);
+            else if (this.State.CompareTo(person.State) != 0)
+                return this.State.CompareTo(person.State);
+            return this.Zip.CompareTo(person.Zip);
         }
 
         public override string ToString()
