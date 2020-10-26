@@ -5,12 +5,12 @@ using System.Text;
 
 namespace addressBook
 {
-    public class contact : IEquatable<contact>, IComparable<contact>
+    public class Contact : IEquatable<Contact>, IComparable<Contact>
     {
         string first = "", last = "", add = "", city = "", state = "", phone = "", email = "";
         int zip = 0;
 
-        public contact(string first, string last, string add, string city, string state, string phone, string email, int zip)
+        public Contact(string first, string last, string add, string city, string state, string phone, string email, int zip)
         {
             this.first = first;
             this.last = last;
@@ -48,17 +48,17 @@ namespace addressBook
 
         public override bool Equals(object obj)
         {
-            return Equals(obj as contact);
+            return Equals(obj as Contact);
         }
 
-        public bool Equals(contact other)
+        public bool Equals(Contact other)
         {
             return other != null &&
                    FirstName == other.FirstName &&
                    LastName == other.LastName;
         }
 
-        public  int CompareTo(contact person)
+        public  int CompareTo(Contact person)
         {
             if (person == null)
                 return 1;
@@ -73,7 +73,7 @@ namespace addressBook
             return this.Zip.CompareTo(person.Zip);
         }
 
-        public override string ToString()
+        /*public override string ToString()
         {
             return "First name: " + FirstName
                 + "\nLast name: " + LastName
@@ -83,6 +83,18 @@ namespace addressBook
                 +"\nZip: "+Zip
                 +"\nPhone: "+Phone
                 +"\nEmail: "+Email;
+        }*/
+
+        public override string ToString()
+        {
+            return FirstName
+                + "\n" + LastName
+                + "\n" + Address
+                + "\n" + City
+                + "\n" + State
+                + "\n" + Zip
+                + "\n" + Phone
+                + "\n" + Email;
         }
     }
 }
