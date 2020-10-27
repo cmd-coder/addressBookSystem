@@ -34,13 +34,13 @@ namespace addressBook
                 Console.WriteLine("Enter\n1 to Add a Contact\n2 to Edit an existing Contact\n3 to delete a Contact\nAny other number to Exit");
                 int choice = Convert.ToInt32(Console.ReadLine());
 
-                if (choice == 1)
+                if (choice == 1)//Add a contact
                     AddContact(list, personcity, personState);
-                else if (choice == 2)
+                else if (choice == 2)//Edit an existing contact
                     EditContact(list);
-                else if (choice == 3)
+                else if (choice == 3)//Delete an existing contact
                     DeleteContact(list);
-                else
+                else//Move out of a particular address book
                     break;
             }
         }
@@ -60,10 +60,10 @@ namespace addressBook
                 string phone = Console.ReadLine();
                 string email = Console.ReadLine();
 
-                //var varContact = new Contact(first, last, address, city, state, phone, email, zip);
-                var varContact = new ContactClass() { first = first, last = last, address = address, city = city, state = state, zip = zip, phone = phone, email = email };
+                //Create a new contact template
+                var varContact = new ContactClass() { First = first, Last = last, Address = address, City = city, State = state, Zip = zip, Phone = phone, Email = email };
 
-                if (list.Contains(varContact))
+                if (list.Contains(varContact))//If address book already has this contact, then discard it and ask the user to enter again
                 {
                     Console.WriteLine("List already has this Contact template. Try again.");
                     Console.WriteLine("-------------------------");
@@ -81,7 +81,7 @@ namespace addressBook
                 Console.WriteLine("Enter 1 to add one more and 0 to exit");
                 int check = Convert.ToInt32(Console.ReadLine());
                 Console.WriteLine("-------------------------");
-                if (check == 0)
+                if (check == 0)//If user does not want to add  another contact
                     break;
             }
         }
@@ -94,25 +94,25 @@ namespace addressBook
 
             foreach (var i in list)
             {
-                if (i.first == first)
+                if (i.First == first)
                 {
-                    Console.WriteLine("The previous Address was: " + i.address + "  ->Enter new Address");
-                    i.address = Console.ReadLine();
+                    Console.WriteLine("The previous Address was: " + i.Address + "  ->Enter new Address");
+                    i.Address = Console.ReadLine();
 
-                    Console.WriteLine("The previous city was: " + i.city + "  ->Enter new city");
-                    i.city = Console.ReadLine();
+                    Console.WriteLine("The previous city was: " + i.City + "  ->Enter new city");
+                    i.City = Console.ReadLine();
 
-                    Console.WriteLine("The previous State was: " + i.state + "  ->Enter new State");
-                    i.state = Console.ReadLine();
+                    Console.WriteLine("The previous State was: " + i.State + "  ->Enter new State");
+                    i.State = Console.ReadLine();
 
-                    Console.WriteLine("The previous Zip was: " + i.zip + "  ->Enter new Zip");
-                    i.zip = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("The previous Zip was: " + i.Zip + "  ->Enter new Zip");
+                    i.Zip = Convert.ToInt32(Console.ReadLine());
 
-                    Console.WriteLine("The previous Phone was: " + i.phone + "  ->Enter new Phone");
-                    i.phone = Console.ReadLine();
+                    Console.WriteLine("The previous Phone was: " + i.Phone + "  ->Enter new Phone");
+                    i.Phone = Console.ReadLine();
 
-                    Console.WriteLine("The previous Email was: " + i.email + "  ->Enter new Email");
-                    i.email = Console.ReadLine();
+                    Console.WriteLine("The previous Email was: " + i.Email + "  ->Enter new Email");
+                    i.Email = Console.ReadLine();
 
                     break;
                 }
@@ -145,7 +145,7 @@ namespace addressBook
 
             foreach (var i in list)
             {
-                if (i.first == name)
+                if (i.First == name)
                 {
                     list.Remove(i);
                     break;
@@ -167,9 +167,9 @@ namespace addressBook
                 List<ContactClass> list = kvp.Value;
                 foreach (var i in list)
                 {
-                    if (i.city == place || i.state == place)
+                    if (i.City == place || i.State == place)
                     {
-                        Console.WriteLine(i.first + " " + i.last + " has been found in " + kvp.Key + " address book.");
+                        Console.WriteLine(i.First + " " + i.Last + " has been found in " + kvp.Key + " address book.");
                         count++;
                     }
                 }
@@ -188,7 +188,7 @@ namespace addressBook
                 List<ContactClass> list = kvp.Value;
                 foreach (var i in list)
                 {
-                    if (i.city == place || i.state == place)
+                    if (i.City == place || i.State == place)
                         count++;
                 }
             }
@@ -214,31 +214,30 @@ namespace addressBook
                     var records = csv.GetRecords<ContactClass>().ToList();
                     foreach(ContactClass items in records)
                     {
-                        string first1 = items.first;
-                        string last1 = items.last;
-                        string address1 =items.address;
-                        string city1 = items.city;
-                        string state1 = items.state;
-                        string phone1 = items.phone;
-                        string email1 = items.email;
-                        int zip1 = items.zip;
-                        //var ConatactClass = new Contact(first, last, address, city, state, phone, email, zip);
+                        string first = items.First;
+                        string last = items.Last;
+                        string address =items.Address;
+                        string city = items.City;
+                        string state = items.State;
+                        string phone = items.Phone;
+                        string email = items.Email;
+                        int zip = items.Zip;
                         ContactClass contact = new ContactClass()
                         {
-                            first = first1,
-                            last = last1,
-                            address = address1,
-                            city = city1,
-                            state = state1,
-                            phone = phone1,
-                            email = email1,
-                            zip = 10066
+                            First = first,
+                            Last = last,
+                            Address = address,
+                            City = city,
+                            State = state,
+                            Phone = phone,
+                            Email = email,
+                            Zip = zip
                         };
                         tempList.Add(contact);
                     }
                 }
                 string fileName = i.Replace(path + "\\", "");
-                fileName = fileName.Replace(".txt", "");
+                fileName = fileName.Replace(".csv", "");
                 if (!addressDict.ContainsKey(fileName))
                     addressDict.Add(fileName, tempList);
             }

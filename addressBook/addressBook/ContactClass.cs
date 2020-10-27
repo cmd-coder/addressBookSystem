@@ -6,28 +6,28 @@ namespace addressBook
 {
     public class ContactClass : IComparable<ContactClass>, IEquatable<ContactClass>
     {
-        public string first
+        public string First
         { get ; set; }
 
-        public string last
+        public string Last
         { get; set; }
 
-        public string address
+        public string Address
         { get; set; }
 
-        public string city
+        public string City
         { get; set; }
 
-        public string state
+        public string State
         { get;set; }
 
-        public int zip
+        public int Zip
         { get; set;}
 
-        public string phone
+        public string Phone
         { get;set; }
 
-        public string email
+        public string Email
         { get; set; }
 
         public override bool Equals(object obj)
@@ -38,35 +38,35 @@ namespace addressBook
         public bool Equals(ContactClass other)
         {
             return other != null &&
-                   first == other.first &&
-                   last == other.last;
+                   First == other.First &&
+                   Last == other.Last;
         }
 
         public int CompareTo(ContactClass person)
         {
             if (person == null)
                 return 1;
-            if (this.first.CompareTo(person.first) != 0)
-                return this.first.CompareTo(person.first);
-            else if (this.last.CompareTo(person.last) != 0)
-                return this.last.CompareTo(person.last);
-            else if (this.city.CompareTo(person.city) != 0)
-                return this.city.CompareTo(person.city);
-            else if (this.state.CompareTo(person.state) != 0)
-                return this.state.CompareTo(person.state);
-            return this.zip.CompareTo(person.zip);
+            if (this.First.CompareTo(person.First) != 0)
+                return this.First.CompareTo(person.First);
+            else if (this.Last.CompareTo(person.Last) != 0)
+                return this.Last.CompareTo(person.Last);
+            else if (this.City.CompareTo(person.City) != 0)
+                return this.City.CompareTo(person.City);
+            else if (this.State.CompareTo(person.State) != 0)
+                return this.State.CompareTo(person.State);
+            return this.Zip.CompareTo(person.Zip);
         }
 
         public override string ToString()
         {
-            return first
-                + "\n" + last
-                + "\n" + address
-                + "\n" + city
-                + "\n" + state
-                + "\n" + zip
-                + "\n" + phone
-                + "\n" + email;
+            return First
+                + "\n" + Last
+                + "\n" + Address
+                + "\n" + City
+                + "\n" + State
+                + "\n" + Zip
+                + "\n" + Phone
+                + "\n" + Email;
         }
     }
 }
