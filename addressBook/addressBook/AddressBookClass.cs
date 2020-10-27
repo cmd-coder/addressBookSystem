@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using CsvHelper;
+using System.Globalization;
+using System.Linq;
 
 namespace addressBook
 {
@@ -9,17 +12,17 @@ namespace addressBook
     {
 
         //This function selects the concerned address book for further operations.
-        public static void Select(List<Contact> list, Dictionary<string, string> personCity, Dictionary<string, string> personState)
+        public static void Select(List<ContactClass> list, Dictionary<string, string> personcity, Dictionary<string, string> personState)
         {
             while (true)
             {
                 if (list.Count == 0)
-                    Console.WriteLine("There are no Contacts in the address book");
+                    Console.WriteLine("There are no ContactClass in the address book");
                 else
                 {
                     list.Sort();//Sorting the list using overridden ToCompare methiod
                     Console.WriteLine("-----------------------------");
-                    Console.WriteLine("The Contacts are: ");
+                    Console.WriteLine("The Contact are: ");
                     Console.WriteLine("-----------------------------");
                     foreach (var i in list)
                     {
@@ -32,7 +35,7 @@ namespace addressBook
                 int choice = Convert.ToInt32(Console.ReadLine());
 
                 if (choice == 1)
-                    AddContact(list, personCity, personState);
+                    AddContact(list, personcity, personState);
                 else if (choice == 2)
                     EditContact(list);
                 else if (choice == 3)
@@ -42,8 +45,8 @@ namespace addressBook
             }
         }
 
-        //This function is used to add contacts in an address book.
-        public static void AddContact(List<Contact> list, Dictionary<string, string> personCity, Dictionary<string, string> personState)
+        //This function is used to add ContactClass in an address book.
+        public static void AddContact(List<ContactClass> list, Dictionary<string, string> personcity, Dictionary<string, string> personState)
         {
             while (true)
             {
@@ -57,7 +60,8 @@ namespace addressBook
                 string phone = Console.ReadLine();
                 string email = Console.ReadLine();
 
-                var varContact = new Contact(first, last, address, city, state, phone, email, zip);
+                //var varContact = new Contact(first, last, address, city, state, phone, email, zip);
+                var varContact = new ContactClass() { first = first, last = last, address = address, city = city, state = state, zip = zip, phone = phone, email = email };
 
                 if (list.Contains(varContact))
                 {
@@ -68,7 +72,7 @@ namespace addressBook
 
                 list.Add(varContact);
 
-                personCity.Add(first + " " + last, city);
+                personcity.Add(first + " " + last, city);
                 personState.Add(first + " " + last, state);
                 Console.WriteLine("-------------------------");
                 Console.WriteLine("The Contact has been added succesfully");
@@ -83,32 +87,32 @@ namespace addressBook
         }
 
         //This function is used to edit a contact
-        public static void EditContact(List<Contact> list)
+        public static void EditContact(List<ContactClass> list)
         {
             Console.WriteLine("Enter the first name of the person whose Contact is to be edited");
-            string firstName = Console.ReadLine();
+            string first = Console.ReadLine();
 
             foreach (var i in list)
             {
-                if (i.FirstName == firstName)
+                if (i.first == first)
                 {
-                    Console.WriteLine("The previous Address was: " + i.Address + "  ->Enter new Address");
-                    i.Address = Console.ReadLine();
+                    Console.WriteLine("The previous Address was: " + i.address + "  ->Enter new Address");
+                    i.address = Console.ReadLine();
 
-                    Console.WriteLine("The previous City was: " + i.City + "  ->Enter new City");
-                    i.City = Console.ReadLine();
+                    Console.WriteLine("The previous city was: " + i.city + "  ->Enter new city");
+                    i.city = Console.ReadLine();
 
-                    Console.WriteLine("The previous State was: " + i.State + "  ->Enter new State");
-                    i.State = Console.ReadLine();
+                    Console.WriteLine("The previous State was: " + i.state + "  ->Enter new State");
+                    i.state = Console.ReadLine();
 
-                    Console.WriteLine("The previous Zip was: " + i.Zip + "  ->Enter new Zip");
-                    i.Zip = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("The previous Zip was: " + i.zip + "  ->Enter new Zip");
+                    i.zip = Convert.ToInt32(Console.ReadLine());
 
-                    Console.WriteLine("The previous Phone was: " + i.Phone + "  ->Enter new Phone");
-                    i.Phone = Console.ReadLine();
+                    Console.WriteLine("The previous Phone was: " + i.phone + "  ->Enter new Phone");
+                    i.phone = Console.ReadLine();
 
-                    Console.WriteLine("The previous Email was: " + i.Email + "  ->Enter new Email");
-                    i.Email = Console.ReadLine();
+                    Console.WriteLine("The previous Email was: " + i.email + "  ->Enter new Email");
+                    i.email = Console.ReadLine();
 
                     break;
                 }
@@ -119,29 +123,29 @@ namespace addressBook
         }
         
         //This function is used to write everything present in the addressDict dictionary into the respective files.
-        internal static void WriteIntoFile(Dictionary<string, List<Contact>> addressDict)
+        internal static void WriteIntoFile(Dictionary<string, List<ContactClass>> addressDict)
         {
-            foreach (KeyValuePair<string, List<Contact>> kvp in addressDict)
+            foreach (KeyValuePair<string, List<ContactClass>> kvp in addressDict)
             {
-                string addressBookName = kvp.Key+".txt";
-                List<Contact> list = kvp.Value;
+                string addressBookName = kvp.Key+".csv";
+                List<ContactClass> list = kvp.Value;
                 using (StreamWriter sw = new StreamWriter(addressBookName))
+                using (var writer = new CsvWriter(sw, CultureInfo.InvariantCulture))
                 {
-                    foreach (var i in list)
-                        sw.WriteLine(i);
+                    sw.WriteLine(list);
                 }
             }
         }
 
         //This function is used to delete a particular contact from an address book
-        public static void DeleteContact(List<Contact> list)
+        public static void DeleteContact(List<ContactClass> list)
         {
             Console.WriteLine("Enter the first name of the Contact to be deleted.");
             string name = Console.ReadLine();
 
             foreach (var i in list)
             {
-                if (i.FirstName == name)
+                if (i.first == name)
                 {
                     list.Remove(i);
                     break;
@@ -153,19 +157,19 @@ namespace addressBook
         }
 
         //This function is used to find a particular person present in a given city or state
-        public static void Find(string place, Dictionary<string, List<Contact>> addressDict)
+        public static void Find(string place, Dictionary<string, List<ContactClass>> addressDict)
         {
             Console.WriteLine("Results:");
             Console.WriteLine("-----------------------");
             int count = 0;
-            foreach (KeyValuePair<string, List<Contact>> kvp in addressDict)
+            foreach (KeyValuePair<string, List<ContactClass>> kvp in addressDict)
             {
-                List<Contact> list = kvp.Value;
+                List<ContactClass> list = kvp.Value;
                 foreach (var i in list)
                 {
-                    if (i.City == place || i.State == place)
+                    if (i.city == place || i.state == place)
                     {
-                        Console.WriteLine(i.FirstName + " " + i.LastName + " has been found in " + kvp.Key + " address book.");
+                        Console.WriteLine(i.first + " " + i.last + " has been found in " + kvp.Key + " address book.");
                         count++;
                     }
                 }
@@ -176,15 +180,15 @@ namespace addressBook
         }
 
         //This function is used to count the number of persons in a given city or state
-        public static void Count(string place, Dictionary<string, List<Contact>> addressDict)
+        public static void Count(string place, Dictionary<string, List<ContactClass>> addressDict)
         {
             int count = 0;
-            foreach (KeyValuePair<string, List<Contact>> kvp in addressDict)
+            foreach (KeyValuePair<string, List<ContactClass>> kvp in addressDict)
             {
-                List<Contact> list = kvp.Value;
+                List<ContactClass> list = kvp.Value;
                 foreach (var i in list)
                 {
-                    if (i.City == place || i.State == place)
+                    if (i.city == place || i.state == place)
                         count++;
                 }
             }
@@ -196,27 +200,40 @@ namespace addressBook
         }
 
         //This function is used to populate the addressDict dictionary from the values present in different .txt files.
-        public static void PopulateDictionary(Dictionary<string, List<Contact>> addressDict)
+        public static void PopulateDictionary(Dictionary<string, List<ContactClass>> addressDict)
         {
             string path = Directory.GetCurrentDirectory();
-            string[] files = Directory.GetFiles(path, "*.txt");
+            string[] files = Directory.GetFiles(path, "*.csv");
             foreach (var i in files)
             {
-                List<Contact> tempList = new List<Contact>();
+                List<ContactClass> tempList = new List<ContactClass>();
                 using (StreamReader sr = new StreamReader(i))
+                using(var csv=new CsvReader(sr, CultureInfo.InvariantCulture))
                 {
-                    string s = "";
-                    while ((s = sr.ReadLine()) != null)
+                    //csv.Configuration.HasHeaderRecord = false;
+                    var records = csv.GetRecords<ContactClass>().ToList();
+                    foreach(ContactClass items in records)
                     {
-                        string first = s;
-                        string last = sr.ReadLine();
-                        string address = sr.ReadLine();
-                        string city = sr.ReadLine();
-                        string state = sr.ReadLine();
-                        int zip = Convert.ToInt32(sr.ReadLine());
-                        string phone = sr.ReadLine();
-                        string email = sr.ReadLine();
-                        var contact = new Contact(first, last, address, city, state, phone, email, zip);
+                        string first1 = items.first;
+                        string last1 = items.last;
+                        string address1 =items.address;
+                        string city1 = items.city;
+                        string state1 = items.state;
+                        string phone1 = items.phone;
+                        string email1 = items.email;
+                        int zip1 = items.zip;
+                        //var ConatactClass = new Contact(first, last, address, city, state, phone, email, zip);
+                        ContactClass contact = new ContactClass()
+                        {
+                            first = first1,
+                            last = last1,
+                            address = address1,
+                            city = city1,
+                            state = state1,
+                            phone = phone1,
+                            email = email1,
+                            zip = 10066
+                        };
                         tempList.Add(contact);
                     }
                 }

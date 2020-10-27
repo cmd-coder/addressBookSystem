@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.Runtime.ExceptionServices;
 using System.Security.Cryptography.X509Certificates;
 using System.IO;
+using CsvHelper;
+using System.Globalization;
 
 namespace addressBook
 {
     class Program
     {
         //C:\Users\dell\source\repos\addressBookSystem\addressBook\addressBook\bin\Debug\netcoreapp3.1
-        static List<Contact> contactList = new List<Contact>();
-        static Dictionary<string, List<Contact>> addressDict = new Dictionary<string, List<Contact>>();
+        static List<ContactClass> ContactClassList = new List<ContactClass>();
+        static Dictionary<string, List<ContactClass>> addressDict = new Dictionary<string, List<ContactClass>>();
         static Dictionary<string, string> personCity = new Dictionary<string, string>();
         static Dictionary<string, string> personState = new Dictionary<string, string>();
 
@@ -18,30 +20,71 @@ namespace addressBook
         {
             Console.WriteLine("Welcome To Address Book Program!");
 
-            var varContact = new Contact("First5", "Last", "Address", "City", "State", "Phone", "Email", 100050);
-            contactList.Add(varContact);
+            ContactClass varContactClass = new ContactClass()
+            {
+                first = "First",
+                last = "Last",
+                address="Address",
+                city="City",
+                state="State",
+                phone="phone",
+                email="email",
+                zip=10066
+            };
+            ContactClassList.Add(varContactClass);
             personCity.Add("First Last", "City");
             personState.Add("First Last", "State");
 
-            var varContact2 = new Contact("First2", "Last2", "Address2", "City2", "State2", "Phone2", "Email2", 200050);
-            contactList.Add(varContact2);
+            ContactClass varContactClass2 = new ContactClass()
+            {
+                first = "First2",
+                last = "Last2",
+                address = "Address2",
+                city = "City2",
+                state = "State2",
+                phone = "phone2",
+                email = "email2",
+                zip = 100667
+            };
+            ContactClassList.Add(varContactClass2);
             personCity.Add("First2 Last2", "City2");
             personState.Add("First2 Last2", "State2");
 
-            var varContact3 = new Contact("First3", "Last3", "Address3", "City3", "State3", "Phone3", "Email3", 300050);
-            contactList.Add(varContact3);
+            ContactClass varContactClass3 = new ContactClass()
+            {
+                first = "First3",
+                last = "Last3",
+                address = "Address3",
+                city = "City3",
+                state = "State3",
+                phone = "phone3",
+                email = "email3",
+                zip = 100668
+            };
+            ContactClassList.Add(varContactClass3);
             personCity.Add("First3 Last3", "City3");
             personState.Add("First3 Last3", "State3");
-            
-            addressDict.Add("Address Book 1", contactList);
+
+            /*var varContactClass2 = new ContactClass("First2", "Last2", "Address2", "City2", "State2", "Phone2", "Email2", 200050);
+            ContactClassList.Add(varContactClass2);
+            personCity.Add("First2 Last2", "City2");
+            personState.Add("First2 Last2", "State2");
+
+            var varContactClass3 = new ContactClass("First3", "Last3", "Address3", "City3", "State3", "Phone3", "Email3", 300050);
+            ContactClassList.Add(varContactClass3);
+            personCity.Add("First3 Last3", "City3");
+            personState.Add("First3 Last3", "State3");*/
+
+            addressDict.Add("Address Book 1", ContactClassList);
 
             //Adding the infoemation in .txt file
-            string addressBookName = "Address Book 1.txt";
+            string addressBookName = "Address Book 1";
 
             using (StreamWriter sw = new StreamWriter(addressBookName))//Create new or replace existing Address Book 1 file
+            using (var csv = new CsvWriter(sw, CultureInfo.InvariantCulture))
             {
-                foreach (var i in contactList)
-                    sw.WriteLine(i);
+                //csv.Configuration.HasHeaderRecord = false;
+                csv.WriteRecords(ContactClassList);
             }
 
             AddressBookClass.PopulateDictionary(addressDict);//Populate the address book dictionary from the present .txt files
@@ -49,13 +92,13 @@ namespace addressBook
             while (true)
             {
                 Console.WriteLine("The address books in the system are:");
-                foreach(KeyValuePair<string, List<Contact>> j in addressDict)
+                foreach(KeyValuePair<string, List<ContactClass>> j in addressDict)
                 {
                     Console.WriteLine(j.Key);
                 }
 
                 Console.WriteLine("---------------------------");
-                Console.WriteLine("Enter:\n1 for adding a new address book\n2 for selecting an existing one\n3 to find a person residing in a city or a state\n4 to find the number of Contact persons residing in a city or state\n5 to exit");
+                Console.WriteLine("Enter:\n1 for adding a new address book\n2 for selecting an existing one\n3 to find a person residing in a city or a state\n4 to find the number of ContactClass persons residing in a city or state\n5 to exit");
                 int option = Convert.ToInt32(Console.ReadLine());
                 if (option == 1)
                 {
@@ -63,7 +106,7 @@ namespace addressBook
                     string name = Console.ReadLine();
                     if (!addressDict.ContainsKey(name))
                     {
-                        List<Contact> list = new List<Contact>();
+                        List<ContactClass> list = new List<ContactClass>();
                         addressDict.Add(name, list);
                         Console.WriteLine("Address book created");
                         Console.WriteLine("--------------------");
