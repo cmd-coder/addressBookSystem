@@ -5,6 +5,9 @@ using System.Security.Cryptography.X509Certificates;
 using System.IO;
 using CsvHelper;
 using System.Globalization;
+using System.Text;
+using System.Linq;
+using Newtonsoft.Json;
 
 namespace addressBook
 {
@@ -68,13 +71,13 @@ namespace addressBook
             addressDict.Add("Address Book 1", ContactClassList);
 
             //Adding the infoemation in .txt file
-            string addressBookName = "Address Book 1.csv";
+            string addressBookName = "Address Book 1.json";
 
+            JsonSerializer jsonSerializer = new JsonSerializer();
             using (StreamWriter sw = new StreamWriter(addressBookName))//Create new or replace existing Address Book 1 file
-            using (var csv = new CsvWriter(sw, CultureInfo.InvariantCulture))
+            using (JsonWriter jsonWriter = new JsonTextWriter(sw))
             {
-                //csv.Configuration.HasHeaderRecord = false;
-                csv.WriteRecords(ContactClassList);
+                jsonSerializer.Serialize(jsonWriter,ContactClassList);
             }
 
             AddressBookClass.PopulateDictionary(addressDict);//Populate the address book dictionary from the present .csv files
