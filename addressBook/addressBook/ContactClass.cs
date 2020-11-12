@@ -1,4 +1,5 @@
-﻿using System;
+﻿/// Including the requried assemblies in to the program
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -33,11 +34,21 @@ namespace addressBook
         public DateTime DateAdded
         { get; set; }
 
+        /// <summary>
+        /// The function is written to call the overloaded Equals function and passing the type casted object
+        /// </summary>
+        /// <param name="obj">the object that is to be converted to an object of type ContactClass</param>
+        /// <returns>true or false dependinng on whether the objects are equal or not repectively</returns>
         public override bool Equals(object obj)
         {
             return Equals(obj as ContactClass);
         }
 
+        /// <summary>
+        /// The function is written to check equality of two objects
+        /// </summary>
+        /// <param name="other">receives ContactClass object to be compared</param
+        /// <returns>true or false depending on whether the objects are equal or not repectively</returns>
         public bool Equals(ContactClass other)
         {
             return other != null &&
@@ -45,6 +56,11 @@ namespace addressBook
                    Last == other.Last;
         }
 
+        /// <summary>
+        /// The function is written to override the CompareTo function declared in the class.
+        /// </summary>
+        /// <param name="person">the objects that needs to be compared</param>
+        /// <returns>1 or -1 depending on whether first object should come before or after respectively</returns>
         public int CompareTo(ContactClass person)
         {
             if (person == null)
@@ -60,6 +76,10 @@ namespace addressBook
             return this.Zip.CompareTo(person.Zip);
         }
 
+        /// <summary>
+        /// The function is written to override the ToString function declared in the Object class
+        /// </summary>
+        /// <returns>concatenated string containing all the details of a contact</returns>
         public override string ToString()
         {
             return First

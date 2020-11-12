@@ -1,4 +1,5 @@
-﻿using System;
+﻿/// Including the requried assemblies in to the program
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,12 +7,16 @@ namespace addressBook
 {
     class OperateOnAddressBook
     {
-        static List<ContactClass> ContactClassList = new List<ContactClass>();//store contacts in an address book
-        static Dictionary<string, List<ContactClass>> addressDict = new Dictionary<string, List<ContactClass>>();//store address books
-        static Dictionary<string, string> personCity = new Dictionary<string, string>();//maintain a dictionary of a person and his city
-        static Dictionary<string, string> personState = new Dictionary<string, string>();//maintain a dictionary of a person and his state
+        /// <summary>
+        /// The function is written to interact with the user and call respective functions to manage address book
+        /// </summary>
         public static void AddressBookOperations()
         {
+            List<ContactClass> ContactClassList = new List<ContactClass>();//store contacts in an address book
+            Dictionary<string, List<ContactClass>> addressDict = new Dictionary<string, List<ContactClass>>();//store address books
+            Dictionary<string, string> personCity = new Dictionary<string, string>();//maintain a dictionary of a person and his city
+            Dictionary<string, string> personState = new Dictionary<string, string>();//maintain a dictionary of a person and his state
+
             while (true)
             {
                 Console.WriteLine("The address books in the system are:");

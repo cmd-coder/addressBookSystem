@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿/// Including the requried assemblies in to the program
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,7 +9,10 @@ namespace addressBook
 {
     class HandleJson
     {
-        //This function is used to populate the addressDict dictionary from the values present in different .txt files.
+        /// <summary>
+        /// The function is written to populate the dictionary from the data stores in the json files
+        /// </summary>
+        /// <param name="addressDict">the address book to be operated</param>
         public static void PopulateDictionary(Dictionary<string, List<ContactClass>> addressDict)
         {
             string path = Directory.GetCurrentDirectory();
@@ -51,6 +55,11 @@ namespace addressBook
             }
         }
 
+        /// <summary>
+        /// The main function is written to test PrimeChecker class
+        /// </summary>
+        /// <param name="addressBookName">the name of the address book to write data into</param>
+        /// <param name="ContactClassList">the list of contacts that will be stored in the files</param>
         public static void JsonHandler(string addressBookName, List<ContactClass> ContactClassList)
         {
             JsonSerializer jsonSerializer = new JsonSerializer();

@@ -1,4 +1,5 @@
-﻿using System;
+﻿/// Including the requried assemblies in to the program
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
@@ -11,8 +12,12 @@ namespace addressBook
 {
     public class AddressBookClass
     {
-
-        //This function selects the concerned address book for further operations.
+        /// <summary>
+        /// The function is written to ask the user the actions which is to be performed on the address book
+        /// </summary>
+        /// <param name="list">the contact list that has been selected by the user</param>
+        /// <param name="personcity">a dictionary to store the person name along with the city in which the person resides</param>
+        /// <param name="personState">a dictionary to store the person name along with the state in which the person resides</param>
         public static void Select(List<ContactClass> list, Dictionary<string, string> personcity, Dictionary<string, string> personState)
         {
             while (true)
@@ -46,7 +51,12 @@ namespace addressBook
             }
         }
 
-        //This function is used to add ContactClass in an address book.
+        /// <summary>
+        /// The function is written to add contacts in the contact list
+        /// </summary>
+        /// <param name="list">the contact list that has been selected by the user</param>
+        /// <param name="personcity">a dictionary to store the person name along with the city in which the person resides</param>
+        /// <param name="personState">a dictionary to store the person name along with the state in which the person resides</param>
         public static void AddContact(List<ContactClass> list, Dictionary<string, string> personcity, Dictionary<string, string> personState)
         {
             while (true)
@@ -87,7 +97,10 @@ namespace addressBook
             }
         }
 
-        //This function is used to edit a contact
+        /// <summary>
+        /// The function is written to edit a contact
+        /// </summary>
+        /// <param name="list">the contact list in which editing is to be done</param>
         public static void EditContact(List<ContactClass> list)
         {
             Console.WriteLine("Enter the first name of the person whose Contact is to be edited");
@@ -123,7 +136,10 @@ namespace addressBook
             Console.WriteLine("-----------------------");
         }
 
-        //This function is used to write everything present in the addressDict dictionary into the respective files.
+        /// <summary>
+        /// The function is written to write data into the json file
+        /// </summary>
+        /// <param name="addressDict">contains the contact lists that has to be stored</param>
         internal static void WriteIntoFile(Dictionary<string, List<ContactClass>> addressDict)
         {
             foreach (KeyValuePair<string, List<ContactClass>> kvp in addressDict)
@@ -139,7 +155,10 @@ namespace addressBook
             }
         }
 
-        //This function is used to delete a particular contact from an address book
+        /// <summary>
+        /// The function is written to delete a contact from the contact list
+        /// </summary>
+        /// <param name="list">the contat list from which a contact has to be deleted</param>
         public static void DeleteContact(List<ContactClass> list)
         {
             Console.WriteLine("Enter the first name of the Contact to be deleted.");
@@ -158,7 +177,10 @@ namespace addressBook
             Console.WriteLine("-----------------------");
         }
 
-        //This function is used to find a particular person present in a given city or state
+        /// <summary>
+        /// The function is written to find a person int the address book
+        /// </summary>
+        /// <param name="addressDict">contains all the contacts details</param>
         public static bool Find(string place, Dictionary<string, List<ContactClass>> addressDict)
         {
             bool found = false;
@@ -184,7 +206,11 @@ namespace addressBook
             return found;
         }
 
-        //This function is used to count the number of persons in a given city or state
+        /// <summary>
+        /// The function is written to count the number of persons residing in the given place
+        /// </summary>
+        /// <param name="place">the place which is to be searched</param>
+        /// <param name="addressDict">contains the data that has to be searched</param>
         public static int Count(string place, Dictionary<string, List<ContactClass>> addressDict)
         {
             int count = 0;
@@ -205,6 +231,12 @@ namespace addressBook
             return count;
         }
 
+        /// <summary>
+        /// The function is written to count the number of contaccts added in a particular period
+        /// </summary>
+        /// <param name="addressDict">contains the address book data that has to be operated upon</param>
+        /// <param name="endDate">the date upto which the search has to be made</param>
+        /// <param name="startDate">the date from which the search has to be started</param>
         public static int ContactsAddedInAParticularPeriod(Dictionary<string, List<ContactClass>> addressDict, DateTime startDate, DateTime endDate)
         {
             int count = 0;

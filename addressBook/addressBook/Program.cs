@@ -1,4 +1,5 @@
-﻿using System;
+﻿/// Including the requried assemblies in to the program
+using System;
 using System.Collections.Generic;
 using System.Runtime.ExceptionServices;
 using System.Security.Cryptography.X509Certificates;
@@ -14,14 +15,20 @@ namespace addressBook
     public class Program
     {
         //C:\Users\dell\source\repos\addressBookSystem\addressBook\addressBook\bin\Debug\netcoreapp3.1
-        static List<ContactClass> ContactClassList = new List<ContactClass>();//store contacts in an address book
-        static Dictionary<string, List<ContactClass>> addressDict = new Dictionary<string, List<ContactClass>>();//store address books
-        static Dictionary<string, string> personCity = new Dictionary<string, string>();//maintain a dictionary of a person and his city
-        static Dictionary<string, string> personState = new Dictionary<string, string>();//maintain a dictionary of a person and his state
 
+        /// <summary>
+        /// The main function is written to Manage Address Book
+        /// </summary>
+        /// <param name="args"></param>
         static void Main(string[] args)
         {
+
             Console.WriteLine("Welcome To Address Book Program!");
+
+            List<ContactClass> ContactClassList = new List<ContactClass>();//store contacts in an address book
+            Dictionary<string, List<ContactClass>> addressDict = new Dictionary<string, List<ContactClass>>();//store address books
+            Dictionary<string, string> personCity = new Dictionary<string, string>();//maintain a dictionary of a person and his city
+            Dictionary<string, string> personState = new Dictionary<string, string>();//maintain a dictionary of a person and his state
 
             InitializeDefaultValues.SetUpDefaultValues();//Store Deafult Values In The Address Book Dictionary
 

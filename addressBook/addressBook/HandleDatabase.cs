@@ -1,4 +1,5 @@
-﻿using System;
+﻿/// Including the requried assemblies in to the program
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -8,11 +9,20 @@ namespace addressBook
 {
     public class HandleDatabase
     {
+        /// <summary>
+        /// The function is written to return the SqlConnection object
+        /// </summary>
+        /// <returns>the SqlConnection object</returns>
         private static SqlConnection ConnectionSetup()
         {
             return new SqlConnection(@"Data Source=DESKTOP-DKOUJ1R\SQLEXPRESS;Initial Catalog=address_book_service;Integrated Security=True");
         }
 
+        /// <summary>
+        /// The function is written to store data from the addressDict into the database
+        /// </summary>
+        /// <param name="addressDict">contains the data to be stored</param>
+        /// <returns>the total number of rows affected in the database</returns>
         public static int StoreInDataBase(Dictionary<string, List<ContactClass>> addressDict)
         {
             int num = 0;
@@ -46,6 +56,12 @@ namespace addressBook
             return num;
         }
 
+        /// <summary>
+        /// The function is written to Insert data into the concerned table
+        /// </summary>
+        /// <param name="list">the list of contacts to be stored</param>
+        /// <param name="name">the name of the in which the data is to be written into</param>
+        /// <returns>the number of rows affected in the databse</returns>
         public static int InsertIntoDataBase(List<ContactClass> list, string name)
         {
             int num = 0;
@@ -74,6 +90,10 @@ namespace addressBook
             return num;
         }
 
+        /// <summary>
+        /// The function is written to retrieve the data from the database
+        /// </summary>
+        /// <param name="addressDict">the dictionary into which the retrieved data will be stored</param>
         public static void RetrieveFromDataBase(Dictionary<string, List<ContactClass>> addressDict)
         {
             List<string> tablesList = GetAllTheTables();
@@ -121,6 +141,10 @@ namespace addressBook
             }
         }
 
+        /// <summary>
+        /// The function is written to fetch all the table names present in the databse
+        /// </summary>
+        /// <returns>the list of table names</returns>
         public static List<string> GetAllTheTables()
         {
             List<string> tablesList = new List<string>();
@@ -144,6 +168,9 @@ namespace addressBook
             return tablesList;
         }
 
+        /// <summary>
+        /// The function is written delete all the existing tables in the database
+        /// </summary>
         public static void DeleteAllTables()
         {
             List<string> list = GetAllTheTables();

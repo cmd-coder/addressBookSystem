@@ -1,4 +1,5 @@
-﻿using System;
+﻿/// Including the requried assemblies in to the program
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,13 +7,17 @@ namespace addressBook
 {
     class InitializeDefaultValues
     {
-        static List<ContactClass> ContactClassList = new List<ContactClass>();//store contacts in an address book
-        static Dictionary<string, List<ContactClass>> addressDict = new Dictionary<string, List<ContactClass>>();//store address books
-        static Dictionary<string, string> personCity = new Dictionary<string, string>();//maintain a dictionary of a person and his city
-        static Dictionary<string, string> personState = new Dictionary<string, string>();//maintain a dictionary of a person and his state
-
+        /// <summary>
+        /// The function is written to store default values in the variabes which will be later used in the program
+        /// </summary>
         public static void SetUpDefaultValues()
         {
+            List<ContactClass> ContactClassList = new List<ContactClass>();//store contacts in an address book
+            Dictionary<string, List<ContactClass>> addressDict = new Dictionary<string, List<ContactClass>>();//store address books
+            Dictionary<string, string> personCity = new Dictionary<string, string>();//maintain a dictionary of a person and his city
+            Dictionary<string, string> personState = new Dictionary<string, string>();//maintain a dictionary of a person and his state
+
+
             ContactClass varContactClass = new ContactClass()//Default data that will be present in the address book at the start of the program
             {
                 First = "First",
