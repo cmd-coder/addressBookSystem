@@ -23,7 +23,7 @@ namespace addressBook
                 List<ContactClass> list = item.Value;
                 if (tableNames.Contains(name))
                     continue;
-                string query = "create table "+name+" (first varchar(25),last varchar(25),address varchar(25),city varchar(25),state varchar(25),zip int,phone varchar(25),email varchar(25));";
+                string query = "create table "+name+" (first varchar(25),last varchar(25),address varchar(25),city varchar(25),state varchar(25),zip int,phone varchar(25),email varchar(25), start_date date);";
                 SqlConnection sqlConnection = ConnectionSetup();
                 SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
 
@@ -51,8 +51,8 @@ namespace addressBook
             int num = 0;
             foreach (var item in list)
             {
-                string query = "INSERT INTO "+ name +" (first,last,address,city,state,zip,phone,email) VALUES('" + item.First +
-                  "','" + item.Last + "','" + item.Address + "','" + item.City + "','" + item.State + "'," + item.Zip + ",'" + item.Phone + "','" + item.Email + "');";
+                string query = "INSERT INTO "+ name +" (first,last,address,city,state,zip,phone,email, start_date) VALUES('" + item.First +
+                  "','" + item.Last + "','" + item.Address + "','" + item.City + "','" + item.State + "'," + item.Zip + ",'" + item.Phone + "','" + item.Email + "','"+item.DateAdded+"');";
 
                 SqlConnection sqlConnection = ConnectionSetup();
                 SqlCommand cmd = new SqlCommand(query, sqlConnection);
@@ -91,7 +91,7 @@ namespace addressBook
                         SqlDataReader dr = cmd.ExecuteReader();
                         if (dr.HasRows)
                         {
-                            System.Console.WriteLine("First Name -- Last Name -- Address -- City -- State -- Zip -- Phone -- Email");
+                            System.Console.WriteLine("First Name -- Last Name -- Address -- City -- State -- Zip -- Phone -- Email -- Date Added");
                             while (dr.Read())
                             {
                                 ContactClass contactClass = new ContactClass();
@@ -103,6 +103,7 @@ namespace addressBook
                                 contactClass.Zip = !dr.IsDBNull(5) ? dr.GetInt32(5) : 0;
                                 contactClass.Phone = !dr.IsDBNull(6) ? dr.GetString(6) : "NA";
                                 contactClass.Email = !dr.IsDBNull(7) ? dr.GetString(7) : "NA";
+                                contactClass.DateAdded = !dr.IsDBNull(8) ? dr.GetDateTime(8) : Convert.ToDateTime("01/01/0001");
                                 list.Add(contactClass);
                             }
                             addressDict.Add(item, list);

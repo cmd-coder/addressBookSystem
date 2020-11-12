@@ -205,6 +205,28 @@ namespace addressBook
             return count;
         }
 
+        public static int ContactsAddedInAParticularPeriod(Dictionary<string, List<ContactClass>> addressDict, DateTime startDate, DateTime endDate)
+        {
+            int count = 0;
+            foreach (KeyValuePair<string, List<ContactClass>> kvp in addressDict)
+            {
+                List<ContactClass> list = kvp.Value;
+                foreach (var i in list)
+                {
+                    if (i.DateAdded<=endDate && i.DateAdded >=startDate)
+                    {
+                        count++;
+                        Console.WriteLine(i);
+                    }
+                }
+            }
+            if (count == 0)
+                Console.WriteLine("No results found");
+            else
+                Console.WriteLine("The number of Contact persons are: " + count);
+            Console.WriteLine("-----------------------");
+            return count;
+        }
         
     }
 }

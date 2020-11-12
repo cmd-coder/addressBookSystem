@@ -23,54 +23,9 @@ namespace addressBook
         {
             Console.WriteLine("Welcome To Address Book Program!");
 
-            ContactClass varContactClass = new ContactClass()//Default data that will be present in the address book at the start of the program
-            {
-                First = "First",
-                Last = "Last",
-                Address="Address",
-                City="City",
-                State="State",
-                Phone="phone",
-                Email="email",
-                Zip=10066
-            };
-            ContactClassList.Add(varContactClass);
-            personCity.Add("First Last", "City");
-            personState.Add("First Last", "State");
+            SetUpDefaultValues();
 
-            ContactClass varContactClass2 = new ContactClass()//Default data that will be present in the address book at the start of the program
-            {
-                First = "First2",
-                Last = "Last2",
-                Address = "Address2",
-                City = "City2",
-                State = "State2",
-                Phone = "phone2",
-                Email = "email2",
-                Zip = 100667
-            };
-            ContactClassList.Add(varContactClass2);
-            personCity.Add("First2 Last2", "City2");
-            personState.Add("First2 Last2", "State2");
-
-            ContactClass varContactClass3 = new ContactClass()//Default data that will be present in the address book at the start of the program
-            {
-                First = "First3",
-                Last = "Last3",
-                Address = "Address3",
-                City = "City3",
-                State = "State3",
-                Phone = "phone3",
-                Email = "email3",
-                Zip = 100668
-            };
-            ContactClassList.Add(varContactClass3);
-            personCity.Add("First3 Last3", "City3");
-            personState.Add("First3 Last3", "State3");
-
-            addressDict.Add("Address_Book_1", ContactClassList);
-
-            //Adding the infoemation in .txt file
+            //Adding the infoemation in .json file
             //string addressBookName = "Address Book 1.json";
 
             //HandleJson.JsonHandler(addressBookName, ContactClassList);
@@ -86,6 +41,60 @@ namespace addressBook
             AddressBookOperations();
         }
 
+        public static void SetUpDefaultValues()
+        {
+            ContactClass varContactClass = new ContactClass()//Default data that will be present in the address book at the start of the program
+            {
+                First = "First",
+                Last = "Last",
+                Address = "Address",
+                City = "City",
+                State = "State",
+                Phone = "phone",
+                Email = "email",
+                Zip = 10066,
+                DateAdded = Convert.ToDateTime("01/01/2020")
+            };
+            ContactClassList.Add(varContactClass);
+            personCity.Add("First Last", "City");
+            personState.Add("First Last", "State");
+
+            ContactClass varContactClass2 = new ContactClass()//Default data that will be present in the address book at the start of the program
+            {
+                First = "First2",
+                Last = "Last2",
+                Address = "Address2",
+                City = "City2",
+                State = "State2",
+                Phone = "phone2",
+                Email = "email2",
+                Zip = 100667,
+                DateAdded = Convert.ToDateTime("01/02/2020")
+            };
+            ContactClassList.Add(varContactClass2);
+            personCity.Add("First2 Last2", "City2");
+            personState.Add("First2 Last2", "State2");
+
+            ContactClass varContactClass3 = new ContactClass()//Default data that will be present in the address book at the start of the program
+            {
+                First = "First3",
+                Last = "Last3",
+                Address = "Address3",
+                City = "City3",
+                State = "State3",
+                Phone = "phone3",
+                Email = "email3",
+                Zip = 100668,
+                DateAdded = Convert.ToDateTime("01/03/2020")
+            };
+            ContactClassList.Add(varContactClass3);
+            personCity.Add("First3 Last3", "City3");
+            personState.Add("First3 Last3", "State3");
+
+            addressDict.Add("Address_Book_1", ContactClassList);
+
+        }
+
         public static void AddressBookOperations()
         {
             while (true)
@@ -97,7 +106,12 @@ namespace addressBook
                 }
 
                 Console.WriteLine("---------------------------");
-                Console.WriteLine("Enter:\n1 for adding a new address book\n2 for selecting an existing one\n3 to find a person residing in a city or a state\n4 to find the number of ContactClass persons residing in a city or state\n5 to exit");
+                Console.WriteLine("Enter:\n1 for adding a new address book\n" +
+                    "2 for selecting an existing one\n" +
+                    "3 to find a person residing in a city or a state\n" +
+                    "4 to find the number of ContactClass persons residing in a city or state\n" +
+                    "5 to to find the contacts that were added in a particular period\n" +
+                    "6 to exit");
                 int option = Convert.ToInt32(Console.ReadLine());
                 if (option == 1)//For adding a new address book
                 {
@@ -140,6 +154,17 @@ namespace addressBook
                     string place = Console.ReadLine();
                     Console.WriteLine("-------------------");
                     AddressBookClass.Count(place, addressDict);
+                }
+
+                else if(option==5)
+                {
+                    Console.WriteLine("Enter the start date in mm/dd/yyyy format");
+                    string startDateString = Console.ReadLine();
+                    Console.WriteLine("Enter the end date in mm/dd/yyyy format");
+                    string endDateString = Console.ReadLine();
+                    DateTime startDate = Convert.ToDateTime(startDateString);
+                    DateTime endDate = Convert.ToDateTime(endDateString);
+                    AddressBookClass.ContactsAddedInAParticularPeriod(addressDict, startDate, endDate);
                 }
 
                 else//End the program and store everything present in addressDict dictionary into the respective files

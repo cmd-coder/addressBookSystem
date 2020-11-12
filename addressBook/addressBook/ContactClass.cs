@@ -7,7 +7,7 @@ namespace addressBook
     public class ContactClass : IComparable<ContactClass>, IEquatable<ContactClass>
     {
         public string First
-        { get ; set; }
+        { get; set; }
 
         public string Last
         { get; set; }
@@ -19,15 +19,18 @@ namespace addressBook
         { get; set; }
 
         public string State
-        { get;set; }
+        { get; set; }
 
         public int Zip
-        { get; set;}
+        { get; set; }
 
         public string Phone
-        { get;set; }
+        { get; set; }
 
         public string Email
+        { get; set; }
+
+        public DateTime DateAdded
         { get; set; }
 
         public override bool Equals(object obj)
@@ -66,7 +69,8 @@ namespace addressBook
                 + "\n" + State
                 + "\n" + Zip
                 + "\n" + Phone
-                + "\n" + Email;
+                + "\n" + Email
+                + "\n" + DateAdded;
         }
     }
 }

@@ -1,5 +1,6 @@
 using addressBook;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 
 namespace AddressBookTest
@@ -21,7 +22,8 @@ namespace AddressBookTest
                 State = "State",
                 Phone = "phone",
                 Email = "email",
-                Zip = 10066
+                Zip = 10066,
+                DateAdded = Convert.ToDateTime("01/01/2020")
             };
             contactClassList.Add(varContactClass);
 
@@ -34,7 +36,8 @@ namespace AddressBookTest
                 State = "State2",
                 Phone = "phone2",
                 Email = "email2",
-                Zip = 100667
+                Zip = 100667,
+                DateAdded = Convert.ToDateTime("01/02/2020")
             };
             contactClassList.Add(varContactClass2);
 
@@ -47,7 +50,8 @@ namespace AddressBookTest
                 State = "State3",
                 Phone = "phone3",
                 Email = "email3",
-                Zip = 100668
+                Zip = 100668,
+                DateAdded = Convert.ToDateTime("01/03/2020")
             };
             contactClassList.Add(varContactClass3);
 
@@ -73,6 +77,15 @@ namespace AddressBookTest
         {
             int actual = AddressBookClass.Count("City2", addressDict);
             Assert.AreEqual(actual, 1);
+        }
+
+        [TestMethod]
+        public void TestContactsAddedInAParticularPeriodOfAddressBookClassPassAddressBookDictionaryAlongWithStartDateAndEndDateAndReceieveTheCountOfContactsInTheDateRange()
+        {
+            DateTime startDate = Convert.ToDateTime("01/01/2020");
+            DateTime endDate = Convert.ToDateTime("01/02/2020");
+            int noOfContacts=AddressBookClass.ContactsAddedInAParticularPeriod(addressDict, startDate, endDate);
+            Assert.AreEqual(2, noOfContacts);
         }
 
     }
