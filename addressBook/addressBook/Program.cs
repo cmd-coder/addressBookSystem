@@ -81,8 +81,13 @@ namespace addressBook
 
             //HandleJson.PopulateDictionary(addressDict);//Populate the address book dictionary from the present .csv files
 
-            //HandleDatabase.RetrieveFromDataBase();
+            HandleDatabase.RetrieveFromDataBase(addressDict);
 
+            AddressBookOperations();
+        }
+
+        public static void AddressBookOperations()
+        {
             while (true)
             {
                 Console.WriteLine("The address books in the system are:");
@@ -145,8 +150,6 @@ namespace addressBook
                     break;
                 }
             }
-
         }
-
     }
 }

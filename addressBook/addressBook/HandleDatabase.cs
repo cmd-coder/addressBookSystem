@@ -16,10 +16,13 @@ namespace addressBook
         public static int StoreInDataBase(Dictionary<string, List<ContactClass>> addressDict)
         {
             int num = 0;
+            List<string> tableNames = GetAllTheTables();
             foreach(KeyValuePair<string,List<ContactClass>> item in addressDict)
             {
                 string name = item.Key;
                 List<ContactClass> list = item.Value;
+                if (tableNames.Contains(name))
+                    continue;
                 string query = "create table "+name+" (first varchar(25),last varchar(25),address varchar(25),city varchar(25),state varchar(25),zip int,phone varchar(25),email varchar(25));";
                 SqlConnection sqlConnection = ConnectionSetup();
                 SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
