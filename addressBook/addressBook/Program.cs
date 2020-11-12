@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 namespace addressBook
 {
-    class Program
+    public class Program
     {
         //C:\Users\dell\source\repos\addressBookSystem\addressBook\addressBook\bin\Debug\netcoreapp3.1
         static List<ContactClass> ContactClassList = new List<ContactClass>();//store contacts in an address book
@@ -68,24 +68,25 @@ namespace addressBook
             personCity.Add("First3 Last3", "City3");
             personState.Add("First3 Last3", "State3");
 
-            addressDict.Add("Address Book 1", ContactClassList);
+            addressDict.Add("Address_Book_1", ContactClassList);
 
             //Adding the infoemation in .txt file
-            string addressBookName = "Address Book 1.json";
+            //string addressBookName = "Address Book 1.json";
 
-            JsonSerializer jsonSerializer = new JsonSerializer();
-            using (StreamWriter sw = new StreamWriter(addressBookName))//Create new or replace existing Address Book 1 file
-            using (JsonWriter jsonWriter = new JsonTextWriter(sw))
-            {
-                jsonSerializer.Serialize(jsonWriter,ContactClassList);
-            }
+            //HandleJson.JsonHandler(addressBookName, ContactClassList);
 
-            AddressBookClass.PopulateDictionary(addressDict);//Populate the address book dictionary from the present .csv files
-            
+            //Testing
+            HandleDatabase.DeleteAllTables();
+            HandleDatabase.StoreInDataBase(addressDict);
+
+            //HandleJson.PopulateDictionary(addressDict);//Populate the address book dictionary from the present .csv files
+
+            //HandleDatabase.RetrieveFromDataBase();
+
             while (true)
             {
                 Console.WriteLine("The address books in the system are:");
-                foreach(KeyValuePair<string, List<ContactClass>> j in addressDict)
+                foreach (KeyValuePair<string, List<ContactClass>> j in addressDict)
                 {
                     Console.WriteLine(j.Key);
                 }
@@ -115,11 +116,12 @@ namespace addressBook
                     Console.WriteLine("Enter the name of the address book to be selected");
                     string book = Console.ReadLine();
                     Console.WriteLine("-------------------");
-                    AddressBookClass.PopulateDictionary(addressDict);
+                    //HandleJson.PopulateDictionary(addressDict);
+                    HandleDatabase.RetrieveFromDataBase(addressDict);
                     AddressBookClass.Select(addressDict[book], personCity, personState);
                 }
 
-                else if(option == 3)//For searching the persons residing in a city or state
+                else if (option == 3)//For searching the persons residing in a city or state
                 {
                     Console.WriteLine("Enter the name of a city or a state");
                     string place = Console.ReadLine();
@@ -127,7 +129,7 @@ namespace addressBook
                     AddressBookClass.Find(place, addressDict);
                 }
 
-                else if(option==4)//For counting the number of persons residing in a city or state
+                else if (option == 4)//For counting the number of persons residing in a city or state
                 {
                     Console.WriteLine("Enter the name of a city or a state");
                     string place = Console.ReadLine();
@@ -137,7 +139,9 @@ namespace addressBook
 
                 else//End the program and store everything present in addressDict dictionary into the respective files
                 {
-                    AddressBookClass.WriteIntoFile(addressDict);
+                    //AddressBookClass.WriteIntoFile(addressDict);
+                    HandleDatabase.DeleteAllTables();
+                    HandleDatabase.StoreInDataBase(addressDict);
                     break;
                 }
             }
