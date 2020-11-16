@@ -115,7 +115,7 @@ namespace addressBook
                             while (dr.Read())
                             {
                                 ContactClass contactClass = new ContactClass();
-                                contactClass.First = !dr.IsDBNull(0) ? dr.GetString(1) : "NA"; ;
+                                contactClass.First = !dr.IsDBNull(0) ? dr.GetString(0) : "NA"; ;
                                 contactClass.Last = !dr.IsDBNull(1) ? dr.GetString(1) : "NA";
                                 contactClass.Address = !dr.IsDBNull(2) ? dr.GetString(2) : "NA"; ;
                                 contactClass.City = !dr.IsDBNull(3) ? dr.GetString(3) : "NA";

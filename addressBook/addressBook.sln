@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.30517.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "addressBook", "addressBook\addressBook.csproj", "{071B7939-AD99-4CD8-B46A-5CDEDB910A74}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddressBookTest", "AddressBookTest\AddressBookTest.csproj", "{BB0ABAFD-2A70-41A7-9D07-C245CC3F05F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddressBookTest", "AddressBookTest\AddressBookTest.csproj", "{BB0ABAFD-2A70-41A7-9D07-C245CC3F05F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JSONServerTest", "JSONServerTest\JSONServerTest.csproj", "{F0B7638E-2D64-4301-A402-76126D6AD553}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{BB0ABAFD-2A70-41A7-9D07-C245CC3F05F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB0ABAFD-2A70-41A7-9D07-C245CC3F05F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB0ABAFD-2A70-41A7-9D07-C245CC3F05F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0B7638E-2D64-4301-A402-76126D6AD553}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0B7638E-2D64-4301-A402-76126D6AD553}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0B7638E-2D64-4301-A402-76126D6AD553}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0B7638E-2D64-4301-A402-76126D6AD553}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
