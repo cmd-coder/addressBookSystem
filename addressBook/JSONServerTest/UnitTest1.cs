@@ -52,7 +52,7 @@ namespace JSONServerTest
         }
 
         [TestMethod]
-        public int OnClaiingGETApi_ReturnContactList()
+        public void OnClaiingGETApi_ReturnContactList()
         {
             IRestResponse response = getContactList();
             Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
@@ -60,8 +60,7 @@ namespace JSONServerTest
             Assert.AreEqual(3, dataresponse.Count);
             foreach (var item in dataresponse)
                 System.Console.WriteLine("ID: "+item.ID+" Name: "+item.Name+" Address: "+item.Address+" City: "+item.City+" State: "+item.State+" Zip: "+item.Zip+" Phone: "+item.Phone+" Email: "+item.Email );
-            return dataresponse.Count;
-        }
+            }
 
         [TestMethod]
         public void GivenMultipleContacts_OnPost_ShouldReturnCountOfContacts()
@@ -86,13 +85,31 @@ namespace JSONServerTest
             obj.Add("Phone", "7889564512");
             obj.Add("Email", "newemail2@email.com");
             jObjectbody[1] = obj;
-            var json = JsonConvert.SerializeObject(jObjectbody);
-            request.AddParameter("application/json", json, ParameterType.RequestBody);
-            request.AddJsonBody(jObjectbody);
+            for (int i = 0; i < 2; i++)
+            {
+                request.AddParameter("application/json", jObjectbody[i], ParameterType.RequestBody);
+                IRestResponse response = client.Execute(request);
+                Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.Created);
+                Contact dataResponse = JsonConvert.DeserializeObject<Contact>(response.Content);
+                if (i == 0)
+                {
+                    Assert.AreEqual("Name new", dataResponse.Name);
+                    Assert.AreEqual("Address new", dataResponse.Address);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void GivenEmployee_OnPatch_ShouldReturnUpdatedEmployee()
+        {
+            RestRequest request = new RestRequest("/contacts/2", Method.PATCH);
+            JObject jObjectbody = new JObject();
+            jObjectbody.Add("Name", "Coder Bhai");
+            request.AddParameter("application/json", jObjectbody, ParameterType.RequestBody);
             IRestResponse response = client.Execute(request);
-            Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.Created);
-            Contact[] dataResponse = JsonConvert.DeserializeObject<Contact[]>(response.Content);
-            Assert.AreEqual(5, 3 + dataResponse.Length);
+            Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
+            Contact dataResponse = JsonConvert.DeserializeObject<Contact>(response.Content);
+            Assert.AreEqual("Coder Bhai", dataResponse.Name);
         }
     }
 }
